@@ -1,0 +1,15 @@
+@charset "utf-8";
+/* CSS Document */
+
+* {
+    margin:0;
+	padding:0;
+}
+
+body {
+	font-family: serif;
+}
+.page-header {
+	color: #3071A9;
+	text-align:justify;
+}
