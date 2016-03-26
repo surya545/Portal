@@ -4,6 +4,9 @@ session_start();
 if (isset($_SESSION['usr'])) {
 include("include/nav.php");
 }
+elseif (isset($_SESSION['student'])) {
+  include("include/navstud.php");
+}
 else{
 include("include/navbar.php");
 }
@@ -38,10 +41,10 @@ include("include/modals.php");
   <script type='text/javascript' src='assets/bs/js/demo.js'></script>
 </head>
 
-<body>
+<body style="overflow: auto;">
 
 <div id="particles"></div>
-  <div id="intro">
+  <div id="intro"  style=" position: initial; margin-top: -651.5px;">
 
 <div class="container">
 <div class="row">

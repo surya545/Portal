@@ -50,14 +50,15 @@ include("include/insert_notice.php");
 
 require_once "assets/texteditor/richtexteditor/include_rte.php";
 ?>
-<body>
+<body style="overflow: auto;">
 
 <div id="particles"></div>
-  <div id="intro">
+  <div id="intro"  style=" position: initial; margin-top: -651.5px;">
 <div class="container">
   <ul class="nav nav-tabs" >
     <li class="active"><a data-toggle="tab" href="#home">New Request</a></li>
     <li><a data-toggle="tab" href="#menu1">Update Notice</a></li>
+    <li><a data-toggle="tab" href="#menu3">All Notice</a></li>
     <li><a data-toggle="tab" href="#menu2">Validated Students</a></li>
   </ul>
   <div class="tab-content"  style="opacity:0.9">
@@ -76,36 +77,16 @@ require_once "assets/texteditor/richtexteditor/include_rte.php";
       while($result = mysql_fetch_assoc($query)){
         ?>
             <tr>
-              <td class="col-xs-3"><?php echo $result['name'] ?></td>
+              <td class="col-xs-3"><?php echo $result['firstname'].' '. $result['lastname'] ?></td>
               <td class="col-xs-3"><?php echo $result['email'] ?></td>
-              <td class="col-xs-2"><?php echo $result['sem'] ?></td>
+              <td class="col-xs-2"><?php echo $result['branch'] ?></td>
               <td class="col-xs-2"><?php echo $result['roll'] ?></td>
               <td class="col-xs-2">
-                <button type="button"  class="open-AddBookDialog btn btn-info btn-sm" style="padding: 2px 5px;" a data-toggle="modal" href="#myModaldet<?php echo $result['id'] ?>">
+                <a href="include/unconfirmed_student_details.php?id=<?php echo $result['id'] ?>"?
+                <button type="input"  title="View Details" class="btn btn-info btn-sm" style="padding: 2px 5px;">
                   <span  class="glyphicon glyphicon-eye-open"aria-hidden="true"></span>
                 </button>
-                          <!-- Student Detail -->
-                          <div class="modal fade" id="myModaldet<?php echo $result['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                          <div class="modal-dialog  modal-lg" role="document">
-                              <div class="modal-content">
-                                <div class="modal-header">
-                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                  <h4 class="modal-title" id="myModalLabel">Detail</h4>
-                                </div>
-                                <div class="modal-body">
-                                  <div class="panel panel-default">
-                            <!-- Default panel contents -->
-                            <div class="panel-heading">Student Detail</div>
-                            <?php echo $result['id'] ?></br>
-                            <?php echo $result['name'] ?></br>
-                            <?php echo $result['email'] ?></br>
-                            <?php echo $result['father'] ?></br>
-                            <?php echo $result['mother'] ?></br>
-                          </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
+              </a>
                 <a href="include/stu_add.php?id=<?php echo $result['id'] ?>">
                 <button type="button"  class="btn btn-success btn-sm" style="padding: 2px 5px;">
                   <span  aria-hidden="true">&#x2714;</span>
@@ -149,6 +130,33 @@ require_once "assets/texteditor/richtexteditor/include_rte.php";
   </div>
     </div>
   </div> 
+    <div id="menu3" class="tab-pane fade">
+      <div class="panel panel-info">
+    <div class="panel-heading">
+    <h3 class="panel-title">New Notice</h3>
+    </div>
+    <div class="panel-body">
+      <form action="admin.php" method="POST">
+                  <?php
+      $query = mysql_query("select * from notice;");
+      while($result = mysql_fetch_assoc($query)){
+        ?>
+        <div class="alert alert-success" role="alert" style="text-align: left;"><?php echo $result['notice'];  ?>
+          <a href="include/notice_del.php?id=<?php echo $result['id'] ?>">
+                <button type="button"  class="btn btn-danger btn-sm" style="padding: 2px 5px; float:right;">
+                  <span  aria-hidden="true">&#x2718;</span>
+                </a>
+
+        </div>
+                
+
+                  <?php
+      }
+        ?>
+        </form>
+  </div>
+    </div>
+  </div> 
    <div id="menu2" class="tab-pane fade">
        <div class="row" style="margin-left:0px; margin-right:0px;">
       <div class="panel panel-default">
@@ -164,36 +172,16 @@ require_once "assets/texteditor/richtexteditor/include_rte.php";
       while($result = mysql_fetch_assoc($query)){
         ?>
             <tr>
-              <td class="col-xs-3"><?php echo $result['name'] ?></td>
+              <td class="col-xs-3"><?php echo $result['firstname'].' '. $result['lastname'] ?></td>
               <td class="col-xs-3"><?php echo $result['email'] ?></td>
-              <td class="col-xs-2"><?php echo $result['sem'] ?></td>
+              <td class="col-xs-2"><?php echo $result['branch'] ?></td>
               <td class="col-xs-2"><?php echo $result['roll'] ?></td>
               <td class="col-xs-2">
-                <button type="button"  class="open-AddBookDialog btn btn-info btn-sm" style="padding: 2px 5px;" a data-toggle="modal" href="#myModaldet<?php echo $result['id'] ?>">
+                <a href="include/confirmed_student_details.php?id=<?php echo $result['id'] ?>"?
+                <button type="input"  title="View Details" class="btn btn-info btn-sm" style="padding: 2px 5px;">
                   <span  class="glyphicon glyphicon-eye-open"aria-hidden="true"></span>
                 </button>
-                          <!-- Student Detail -->
-                          <div class="modal fade" id="myModaldet<?php echo $result['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                          <div class="modal-dialog  modal-lg" role="document">
-                              <div class="modal-content">
-                                <div class="modal-header">
-                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                  <h4 class="modal-title" id="myModalLabel">Detail</h4>
-                                </div>
-                                <div class="modal-body">
-                                  <div class="panel panel-default">
-                            <!-- Default panel contents -->
-                            <div class="panel-heading">Student Detail</div>
-                            <?php echo $result['id'] ?></br>
-                            <?php echo $result['name'] ?></br>
-                            <?php echo $result['email'] ?></br>
-                            <?php echo $result['father'] ?></br>
-                            <?php echo $result['mother'] ?></br>
-                          </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
+              </a>
                 <a href="include/cnfrm_stu_del.php?id=<?php echo $result['id'] ?>">
                 <button type="button"  class="btn btn-danger btn-sm" style="padding: 2px 5px;">
                   <span  aria-hidden="true">&#x2718;</span>
